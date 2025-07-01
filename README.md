@@ -38,12 +38,13 @@ This project predicts the **Fire Weather Index (FWI)** based on various meteorol
 
 2.   **Install dependencies**
 
-'''bash
+```bash
    pip install -r requirements.txt
-   
+
+
 3.**Run the Flask app**
 
-'''bash
+```bash
    python application.py
 
 4.**Open your browser and visit http://127.0.0.1:5000/**
