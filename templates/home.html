@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FWI Prediction</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .form-control, .form-select {
+      border-radius: 0.5rem;
+    }
+
+    .card {
+      border-radius: 1rem;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background-color: #1976d2;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #125ea3;
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+
+    .material-symbols-outlined {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold"> FWI Prediction</h2>
+      <span class="theme-toggle material-icons" onclick="toggleTheme()">dark_mode</span>
+    </div>
+
+    <div class="card p-4">
+      <form action="/predictdata" method="POST" class="row g-3">
+        <div class="col-md-6">
+          <input type="text" name="Temperature" class="form-control" placeholder="Temperature" value="{{ request.form.Temperature or '' }}" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="RH" class="form-control" placeholder="RH" value="{{ request.form.RH or '' }}" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="Ws" class="form-control" placeholder="Ws" value="{{ request.form.Ws or '' }}" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="Rain" class="form-control" placeholder="Rain" value="{{ request.form.Rain or '' }}" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="FFMC" class="form-control" placeholder="FFMC" value="{{ request.form.FFMC or '' }}" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="DMC" class="form-control" placeholder="DMC" value="{{ request.form.DMC or '' }}" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="ISI" class="form-control" placeholder="ISI" value="{{ request.form.ISI or '' }}" required />
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="Classes" class="form-control" placeholder="Classes" value="{{ request.form.Classes or '' }}" required />
+        </div>
+        <div class="col-md-12">
+          <input type="text" name="Region" class="form-control" placeholder="Region" value="{{ request.form.Region or '' }}" required />
+        </div>
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary px-4">Predict</button>
+        </div>
+      </form>
+
+      {% if results is defined %}
+      <div class="mt-4 border-top pt-3 text-center">
+        <h5 class="text-danger mb-2"> THE FWI prediction is:</h5>
+        <h3 class="fw-bold text-primary">{{ results  }}</h3>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Dark Mode Script -->
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.querySelector(".theme-toggle");
+
+      if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        body.classList.add("bg-light");
+        icon.textContent = "dark_mode";
+      } else {
+        body.classList.add("dark-mode");
+        body.classList.remove("bg-light");
+        icon.textContent = "light_mode";
+      }
+    }
+  </script>
+</body>
+</html>
